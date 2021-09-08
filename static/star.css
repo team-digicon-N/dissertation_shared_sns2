@@ -21,9 +21,9 @@
     color: #ffcf32; /* イエローカラー 自由に設定化 */
 }
 
-.star5_rating[data-rate=5]:after{ width: 100%; } /* 星5 */
-.star5_rating[data-rate=4]:after{ width: 80%; } /* 星4 */
-.star5_rating[data-rate=3]:after{ width: 60%; } /* 星3 */
-.star5_rating[data-rate=2]:after{ width: 40%; } /* 星2 */
-.star5_rating[data-rate=1]:after{ width: 20%; } /* 星1 */
-.star5_rating[data-rate=0]:after{ width: 0%; } /* 星0 */
+.star5_rating[data-rate="5"]:after{ width: 100%; } /* 星5 */
+.star5_rating[data-rate="4"]:after{ width: 80%; } /* 星4 */
+.star5_rating[data-rate="3"]:after{ width: 60%; } /* 星3 */
+.star5_rating[data-rate="2"]:after{ width: 40%; } /* 星2 */
+.star5_rating[data-rate="1"]:after{ width: 20%; } /* 星1 */
+.star5_rating[data-rate="0"]:after{ width: 0%; } /* 星0 */
