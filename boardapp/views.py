@@ -75,7 +75,7 @@ def goodfunc(request, pk):
 class BoardCreate(CreateView):
 	template_name = 'create.html'
 	model = BoardModel
-	fields = ('user_id', 'title', 'content', 'author', 'sns_image')
+	fields = ('user_id', 'title', 'content', 'author', 'sns_image', 'star_rate')
 	success_url = reverse_lazy('list')
 
 class ProfileCreate(CreateView):
