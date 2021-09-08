@@ -17,10 +17,9 @@
     </form>
     <div class="alert alert-success" role="alert">
         <p>投稿者: {{ object.author }}</p>
-        <p>タイトル: {{ object.title }}</p>
+        <p>タイトル：<a href="https://github.com/team-digicon-N/dissertation_shared_sns2">{{ object.title }}</a></p>
         <p>{{ object.pub_date|date:"Y-m-j H:i:s" }}</p>
         <p> {{ object.content }}</p>
-        <p><img src="{{ object.sns_image.url }}" width=300></p>
         <a href="{% url 'good' object.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">いいねする</a>
     </div>
 </div>
