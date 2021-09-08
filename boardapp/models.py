@@ -9,11 +9,11 @@ class BoardModel(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     author = models.CharField(max_length=50)
-    sns_image = models.ImageField(upload_to='',null=True, blank=True, default=0)
     good = models.IntegerField(null=True, blank=True, default=0)
     readtext = models.TextField(null=True, blank=True, default='initial')
     pub_date = models.DateTimeField(default=timezone.now)
     star_rate = models.IntegerField(null=True, blank=True, default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    article_urls = models.URLField(max_length=200)
 
     def __str__(self):
         return self.title

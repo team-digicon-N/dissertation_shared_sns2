@@ -75,7 +75,7 @@ def goodfunc(request, pk):
 class BoardCreate(CreateView):
 	template_name = 'create.html'
 	model = BoardModel
-	fields = ('user_id', 'title', 'content', 'author', 'sns_image', 'star_rate')
+	fields = ('user_id', 'title', 'content', 'author',  'star_rate')
 	success_url = reverse_lazy('list')
 
 class ProfileCreate(CreateView):
@@ -105,7 +105,7 @@ class BoardDelete(DeleteView):
 class BoardUpdate(UpdateView):
     template_name = 'update.html'
     model = BoardModel
-    fields = ('title', 'content', 'author', 'sns_image')
+    fields = ('title', 'content', 'author')
     success_url = reverse_lazy('list')
 
 def followfunc(request, user_id):
