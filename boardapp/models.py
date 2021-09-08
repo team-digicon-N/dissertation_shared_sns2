@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -12,6 +13,7 @@ class BoardModel(models.Model):
     good = models.IntegerField(null=True, blank=True, default=0)
     readtext = models.TextField(null=True, blank=True, default='initial')
     pub_date = models.DateTimeField(default=timezone.now)
+    star_rate = models.IntegerField(null=True, blank=True, default=0, validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
         return self.title
