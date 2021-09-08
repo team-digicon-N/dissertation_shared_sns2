@@ -36,7 +36,7 @@
         <img src="{{i.header_image.url}}" class="user-icon" >
         {% endif %}
         {% endfor %}
-        <p>タイトル：<a href={{item.article_urls}}>{{item.article_urls}}</a></p>
+        <p>タイトル：<a href={{item.article_urls}}>{{item.title}}</a></p>
         <p>投稿者：{{ item.author }}</p>
         <p>{{ item.pub_date|date:"Y-m-j H:i:s" }}</p>
         <p><span class="star5_rating" data-rate={{item.star_rate}}></span></p>
