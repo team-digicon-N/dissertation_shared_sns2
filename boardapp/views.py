@@ -58,7 +58,9 @@ def logoutfunc(request):
 @login_required
 def detailfunc(request, pk):
 	object = get_object_or_404(BoardModel, pk=pk)
-	return render(request, 'detail.html', {'object':object})
+	user_numbers = ProfileModel.objects.all()
+	return render(request, 'detail.html', {'object':object,'user_numbers':user_numbers})
+
 
 def goodfunc(request, pk):
     object = BoardModel.objects.get(pk=pk)
@@ -75,7 +77,7 @@ def goodfunc(request, pk):
 class BoardCreate(CreateView):
 	template_name = 'create.html'
 	model = BoardModel
-	fields = ('user_id', 'title', 'content', 'author',  'star_rate')
+	fields = ('user_id', 'title', 'content', 'author',  'star_rate', 'article_urls')
 	success_url = reverse_lazy('list')
 
 class ProfileCreate(CreateView):
@@ -86,6 +88,7 @@ class ProfileCreate(CreateView):
 
 def profilefunc(request, user_id):
 	object_profile = ProfileModel.objects.get(user_id=user_id)
+	user_numbers = ProfileModel.objects.all()
 	user = request.user
 	object_board = []
 	following = False
@@ -94,7 +97,7 @@ def profilefunc(request, user_id):
 	for b in BoardModel.objects.all():
 		if user_id == b.user_id:
 			object_board.append(b)
-	return render(request, 'profile.html', {'object_board':object_board, 'object_profile':object_profile, 'following':following})
+	return render(request, 'profile.html', {'object_board':object_board, 'object_profile':object_profile, 'following':following,'user_numbers':user_numbers,})
 	
 
 class BoardDelete(DeleteView):
@@ -126,9 +129,10 @@ def followfunc(request, user_id):
 
 def followpagefunc(request, user_id):
 	user = ProfileModel.objects.get(user_id=user_id)
+	user_numbers = ProfileModel.objects.all()
 	follow_list = []
 	for b in BoardModel.objects.all():
 		for f in user.follow_text.split():
 			if str(b.user_id) == f:
 				follow_list.append(b)
-	return render(request, 'followpage.html', {'follow_list':follow_list})
+	return render(request, 'followpage.html', {'follow_list':follow_list,'user_numbers':user_numbers})
