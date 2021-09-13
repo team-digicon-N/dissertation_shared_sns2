@@ -3,12 +3,14 @@
 
 {% block customcss %}
 <link href="{% static 'image.css' %}" rel="stylesheet">
+
 {% endblock customcss %}
 
 {% block header %}
-<div class="alert alert-primary" role="alert">
-    <h3>SNS</h3>
-</div>
+    <h3>論文共有SNS</h3>
+    <p class="text-center font-weight-bold h1 "　>
+      Create
+    </p>
 {% endblock header %}
 {% block content %}
 {% if user.is_authenticated %}

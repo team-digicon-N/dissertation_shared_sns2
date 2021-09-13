@@ -3,10 +3,16 @@
 
 {% block customcss %}
 <link href="{% static 'image.css' %}" rel="stylesheet">
+<link href="{% static 'star.css' %}" rel="stylesheet">
 {% endblock customcss %}
 
 {% block header %}
-<div class="alert alert-primary" role="alert">
+<h3>論文共有SNS</h3>
+    <p class="text-center font-weight-bold h1 "　>
+      My profile
+    </p>
+    
+<div class="alert alert-light" role="alert">
     <img src="{{object_profile.header_image.url}}" class="user-icon" >
     <h3>{{object_profile.author}}のプロフィール</h3> 
     <p>{{object_profile.one_thing}}</p>
@@ -23,26 +29,72 @@
 {% endblock header %}
 
 {% block content %}
+<div class="alert alert-secondary" role="alert">
 <div class="container">
-    <form method="GET" action="{% url 'list' %}">
-        <input type="text" name="keyword">
-        <button type="submit">検索</button>
-        <a href="{% url 'list' %}" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">ホームへ</a>
-        <a href="{% url 'profile' user.id  %}" class="btn btn-primary"  tabindex="-1" role="button" aria-disabled="true">My profile</a>
-        <a href="{% url 'create' %}" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">create</a>
-    </form>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{% url 'list' %}">Home</a>
+          </li>  
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="{% url 'followpage' user.id  %}">FollowPage</a>
+          </li>           
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'profile' user.id  %}">My profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="{% url 'create' %}">Create</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="{% url 'logout' %}">Logout</a>
+            </li>  
+        </ul>
+        <form class="d-flex" method="GET" action="{% url 'list' %}">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <p></p>
     {% for item in object_board %}
-    <div class="alert alert-success" role="alert">
-        <p>タイトル: <a href="{% url 'detail' item.pk %}">{{ item.title }}</a></p>
-        <p>投稿者: {{ item.author }}</p>
+    <div class="alert alert-light" role="alert">
+      {% for i in user_numbers %}
+        {% if item.user_id == i.user_id %}
+        <img src="{{i.header_image.url}}" class="user-icon" >
+        {% endif %}
+        {% endfor %}
+        <p>投稿者：<a href="{% url 'profile' item.user_id %}">{{ item.author }}</a></p>
+        <p>タイトル:<a href="{% url 'detail' item.pk %}">{{ item.title }}</a></p>
         <p>{{ item.pub_date|date:"Y-m-j H:i:s" }}</p>
+        <p><span class="star5_rating" data-rate={{item.star_rate}}></span></p>
         <a href="{% url 'good' item.pk %}" class="btn btn-primary "  tabindex="-1" role="button" aria-disabled="true">いいね{{item.good}}</a>
         {% if item.author  == user.username %}
-           <a href="{% url 'delete' item.pk %}" class="btn btn-primary "  tabindex="-1" role="button" aria-disabled="true">削除</a>
-           <a href="{% url 'update' item.pk %}" class="btn btn-primary "  tabindex="-1" role="button" aria-disabled="true">編集</a>
+        <a href="{% url 'update' item.pk %}" class="btn btn-primary"  tabindex="-1" role="button" aria-disabled="true">編集</a>         
+        <button type="button" class="btn btn-danger mb-12" data-toggle="modal" data-target="#testModal">削除</button>
+      <!-- ボタン・リンククリック後に表示される画面の内容 -->
+      　<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
+                  </div>
+                  <div class="modal-body">
+                      <label>データを削除しますか？</label>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                      <a href="{% url 'delete' item.pk %}" class="btn btn-danger"  tabindex="-1" role="button" aria-disabled="true">削除</a>
+                  </div>
+              </div>
+          </div>
+      </div>
         {% endif %}
     </div>
     {% endfor %}
     <a href="{% url 'logout' %}" class="btn btn-primary active" role="button" aria-pressed="true">logout</a>
+</div>
 </div>
 {% endblock content %}
