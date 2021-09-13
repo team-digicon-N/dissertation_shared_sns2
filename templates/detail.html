@@ -3,6 +3,7 @@
 
 {% block customcss %}
 <link href="{% static 'image.css' %}" rel="stylesheet">
+<link href="{% static 'star.css' %}" rel="stylesheet">
 {% endblock customcss %}
 
 
@@ -56,6 +57,7 @@
         <p>タイトル：<a href={{object.article_urls}}>{{object.title}}</a></p>
         <p>{{ object.pub_date|date:"Y-m-j H:i:s" }}</p>
         <p> {{ object.content }}</p>
+        <p><span class="star5_rating" data-rate={{object.star_rate}}></span></p>
         <a href="{% url 'good' object.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">いいねする</a>
     </div>
 </div>
