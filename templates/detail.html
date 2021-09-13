@@ -1,26 +1,61 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link href="{% static 'image.css' %}" rel="stylesheet">
+{% endblock customcss %}
+
 
 {% block header %}
-<div class="alert alert-primary" role="alert">
-    <h3>SNS</h3>
-</div>
+
+    <h3>論文共有SNS</h3>
+    <p class="text-center font-weight-bold h1 ">
+      Detail
+    </p>
+     
+ 
 {% endblock header %}
 
 {% block content %}
 <div class="container">
-    <form method="GET" action="{% url 'list' %}">
-        <input type="text" name="keyword">
-        <button type="submit">検索</button>
-        <a href="{% url 'list' %}" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">ホームへ</a>
-        <a href="{% url 'profile' user.id  %}" class="btn btn-primary"  tabindex="-1" role="button" aria-disabled="true">My profile</a>
-        <a href="{% url 'create' %}" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">create</a>
-    </form>
-    <div class="alert alert-success" role="alert">
-        <p>投稿者: {{ object.author }}</p>
-        <p>タイトル: {{ object.title }}</p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{% url 'list' %}">Home</a>
+              </li>  
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{% url 'followpage' user.id  %}">FollowPage</a>
+              </li>           
+                <li class="nav-item">
+                  <a class="nav-link " aria-current="page" href="{% url 'profile' user.id  %}">My profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " aria-current="page" href="{% url 'create' %}">Create</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " aria-current="page" href="{% url 'logout' %}">Logout</a>
+                </li>  
+            </ul>
+            <form class="d-flex" method="GET" action="{% url 'list' %}">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <p></p>
+    <div class="alert alert-light" role="alert">
+      {% for i in user_numbers %}
+      {% if object.user_id == i.user_id %}
+      <img src="{{i.header_image.url}}" class="user-icon" >
+      {% endif %}
+      {% endfor %}
+        <p>投稿者：<a href="{% url 'profile' object.user_id %}">{{ object.author }}</a></p>
+        <p>タイトル：<a href={{object.article_urls}}>{{object.title}}</a></p>
         <p>{{ object.pub_date|date:"Y-m-j H:i:s" }}</p>
         <p> {{ object.content }}</p>
-        <p><img src="{{ object.sns_image.url }}" width=300></p>
         <a href="{% url 'good' object.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">いいねする</a>
     </div>
 </div>

@@ -3,27 +3,32 @@
 
 {% block customcss %}
 <link href="{% static 'image.css' %}" rel="stylesheet">
+
 {% endblock customcss %}
 
 {% block header %}
-<div class="alert alert-primary" role="alert">
-    <h3>SNS</h3>
-</div>
+    <h3>論文共有SNS</h3>
+    <p class="text-center font-weight-bold h1 "　>
+      Create
+    </p>
 {% endblock header %}
 {% block content %}
 {% if user.is_authenticated %}
 <form class="deopdown-menu p-4 " method="POST" enctype="multipart/form-data">{% csrf_token %}
     <div class="mb-3">
         <label for="exampleInputTitle" class="form-label">Title</label>
-        <input type="text" name="title" class="form-control" id="exampleInputTitle" placeholder="暇だなー">
+        <input type="text" name="title" class="form-control" id="exampleInputTitle" placeholder="論文のタイトル">
     </div>
     <div class="mb-3">
-        <label for="exampleInputcontent" class="form-label">Content</label>
-        <input type="text" name="content" class="form-control" id="exampleInputcontent" placeholder="今どうしてる？">
+        <label  for="exampleInputURL" class="form-label">論文のurl</label>
+        <input type="url" name="article_urls" class="form-control"  id="exampleInputURL" placeholder="https://...">
     </div>
-    <p><input type="file" name="sns_image"></p>
     <div class="mb-3">
-        <label for="exampleInputrating" class="form-label">論文評価</label>
+        <label for="exampleInputcontent" class="form-label">コメント</label>
+        <input type="text" name="content" class="form-control" id="exampleInputcontent" placeholder="概要など">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">論文評価</label>
         <select name="star_rate">
             <option value=1>1</option>
             <option value=2>2</option>
