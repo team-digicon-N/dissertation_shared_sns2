@@ -51,49 +51,25 @@
         </div>
       </nav>
       <p></p>
-    {% for item in object_list %}
+    {% for item in object_list reversed%}
     <div class="alert alert-light" role="alert">
         {% for i in object_profile %}
         {% if item.user_id == i.user_id %}
         <img src="{{i.header_image.url}}" class="user-icon" >
         {% endif %}
         {% endfor %}
-<<<<<<< HEAD
-        <p>タイトル：<a href={{item.article_urls}}>{{item.title}}</a></p>
-        <p>投稿者：{{ item.author }}</p>
-=======
         <p>投稿者：<a href="{% url 'profile' item.user_id %}">{{ item.author }}</a></p>
-        <p>タイトル：<a href={{item.article_urls}}>{{item.title}}</a></p>
->>>>>>> starRating
+        <p>論文タイトル：<a href={{item.article_urls}}>{{item.title}}</a></p>
         <p>{{ item.pub_date|date:"Y-m-j H:i:s" }}</p>
         <p><span class="star5_rating" data-rate={{item.star_rate}}></span></p>
         <a href="{% url 'good' item.pk %}" class="btn btn-primary"  tabindex="-1" role="button" aria-disabled="true">いいね{{item.good}}</a>
-        <a href="{% url 'detail' item.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">詳細</a>
+        <a href="{% url 'detail' item.pk %}" class="btn btn-primary" tabindex="-1" role="button" aria-pressed="true">詳細</a>
         {% if item.author  == user.username %}
         <a href="{% url 'update' item.pk %}" class="btn btn-primary"  tabindex="-1" role="button" aria-disabled="true">編集</a>   
         <a href="{% url 'delete' item.pk %}" class="btn btn-danger"  tabindex="-1" role="button" aria-disabled="true">削除</a>      
-        <button type="button" class="btn btn-danger mb-12" data-toggle="modal" data-target="#testModal">削除</button>
-      <!-- ボタン・リンククリック後に表示される画面の内容 -->
-      　<div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">削除確認画面</h4>
-                  </div>
-                  <div class="modal-body">
-                      <label>データを削除しますか？</label>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                      <a href="{% url 'delete' item.pk %}" class="btn btn-danger"  tabindex="-1" role="button" aria-disabled="true">削除</a>
-                  </div>
-              </div>
-          </div>
-      </div>
         {% endif %}
     </div>
     {% endfor %}
-    <a href="{% url 'logout' %}" >logout</a>
 </div>
 {% else %}
 please login <a href="{% url 'login' %}" >login</a>

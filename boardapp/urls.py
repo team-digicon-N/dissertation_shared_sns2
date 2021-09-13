@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import signupfunc, loginfunc, listfunc,\
-logoutfunc, detailfunc, goodfunc, BoardCreate, profilefunc, BoardDelete, BoardUpdate, followfunc, followpagefunc, ProfileCreate
+logoutfunc, detailfunc, goodfunc, BoardCreate, profilefunc, BoardDelete, BoardUpdate, followfunc, followpagefunc, ProfileCreate, updatefunc, update2func
 urlpatterns = [
 	path('signup/', signupfunc, name='signup'),
 	path('', loginfunc, name='login'),
@@ -10,7 +10,9 @@ urlpatterns = [
 	path('good/<int:pk>', goodfunc, name='good'),
 	path('create/', BoardCreate.as_view(), name='create'),
 	path('delete/<int:pk>', BoardDelete.as_view(), name='delete'),
-    path('update/<int:pk>',BoardUpdate.as_view(), name='update'),
+    # path('update/<int:pk>',BoardUpdate.as_view(), name='update'),
+	path('update/<int:pk>', updatefunc, name='update'),
+	path('update2/<int:pk>', update2func, name='update2'),
 	path('follow/<int:user_id>', followfunc, name='follow'),
 	path('followpage/<int:user_id>', followpagefunc, name='followpage'),
 	path('profilecreate/', ProfileCreate.as_view(), name='profilecreate'),

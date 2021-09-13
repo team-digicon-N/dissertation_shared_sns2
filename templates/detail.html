@@ -54,7 +54,7 @@
       {% endif %}
       {% endfor %}
         <p>投稿者：<a href="{% url 'profile' object.user_id %}">{{ object.author }}</a></p>
-        <p>タイトル：<a href={{object.article_urls}}>{{object.title}}</a></p>
+        <p>論文タイトル：<a href={{object.article_urls}}>{{object.title}}</a></p>
         <p>{{ object.pub_date|date:"Y-m-j H:i:s" }}</p>
         <p> {{ object.content }}</p>
         <p><span class="star5_rating" data-rate={{object.star_rate}}></span></p>

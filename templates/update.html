@@ -9,12 +9,51 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-<p>title:<input type="text" name="title"></p>
-<p>content:<input type="text" name="content"></p>
-<input type="hidden" name="author" value="{{ user.username }}">
-
-<input type="submit" value="create">
+<form class="deopdown-menu p-4 " method="POST" action="{% url 'update2' object.pk %}" enctype="multipart/form-data">{% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleInputTitle" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="exampleInputTitle" value="{{object.title}}">
+    </div>
+    <div class="mb-3">
+        <label  for="exampleInputURL" class="form-label">論文のurl</label>
+        <input type="url" name="article_urls" class="form-control" id="exampleInputURL" value="{{object.article_urls}}">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputcontent" class="form-label">コメント</label>
+        <input type="text" name="content" class="form-control" id="exampleInputcontent" value="{{object.content}}">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">論文評価</label>
+        <select name="star_rate">
+            {% if object.star_rate == 1 %}
+            <option value=1 selected>1</option>
+            {% else %}
+            <option value=1>1</option>
+            {% endif %}
+            {% if object.star_rate == 2 %}
+            <option value=2 selected>2</option>
+            {% else %}
+            <option value=2>2</option>
+            {% endif %}
+            {% if object.star_rate == 3 %}
+            <option value=3 selected>3</option>
+            {% else %}
+            <option value=3>3</option>
+            {% endif %}
+            {% if object.star_rate == 4 %}
+            <option value=4 selected>4</option>
+            {% else %}
+            <option value=4>4</option>
+            {% endif %}
+            {% if object.star_rate == 5 %}
+            <option value=5 selected>5</option>
+            {% else %}
+            <option value=5>5</option>
+            {% endif %}
+        </select>
+    </div>
+    <input type ="submit" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true" value="create">
+    <a href="{% url 'list' %}" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">cancel</a>
 </form>
 {% else %}
 please login

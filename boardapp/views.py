@@ -77,11 +77,7 @@ def goodfunc(request, pk):
 class BoardCreate(CreateView):
 	template_name = 'create.html'
 	model = BoardModel
-<<<<<<< HEAD
-	fields = ('user_id', 'title', 'content', 'author', 'star_rate', 'article_urls')
-=======
 	fields = ('user_id', 'title', 'content', 'author',  'star_rate', 'article_urls')
->>>>>>> starRating
 	success_url = reverse_lazy('list')
 
 class ProfileCreate(CreateView):
@@ -112,8 +108,21 @@ class BoardDelete(DeleteView):
 class BoardUpdate(UpdateView):
     template_name = 'update.html'
     model = BoardModel
-    fields = ('title', 'content', 'author')
+    fields = ('title', 'content', 'author', 'star_rate', 'article_urls')
     success_url = reverse_lazy('list')
+
+def updatefunc(request, pk):
+	object = get_object_or_404(BoardModel, pk=pk)
+	return render(request, 'update.html', {'object':object})
+
+def update2func(request, pk):
+	object = get_object_or_404(BoardModel, pk=pk)
+	object.title = request.POST['title']
+	object.article_urls = request.POST['article_urls']
+	object.content = request.POST['content']
+	object.star_rate = request.POST['star_rate']
+	object.save()
+	return redirect('list')
 
 def followfunc(request, user_id):
 	user = request.user
